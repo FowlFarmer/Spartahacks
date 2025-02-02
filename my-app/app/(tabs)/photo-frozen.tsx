@@ -51,77 +51,7 @@ const PhotoReelScreen = () => {
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#1c1c2b",
-    paddingHorizontal: 20,
-    paddingTop: 50,
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  title: {
-    color: "#dcdcf0",
-    fontSize: 28,
-    fontWeight: "600",
-  },
-  profileImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-  },
-  mainContent: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  developingText: {
-    color: "#dcdcf0",
-    fontSize: 20,
-    marginBottom: 20,
-  },
-  filmReel: {
-    width: 200,
-    height: 150,
-    backgroundColor: "#2c2c3b",
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  unfreezeText: {
-    color: "#dcdcf0",
-    fontSize: 18,
-  },
-  timerText: {
-    color: "#fff",
-    fontSize: 22,
-    fontWeight: "700",
-    marginTop: 10,
-  },
-  albumsLink: {
-    color: "#99aaff",
-    fontSize: 16,
-    textDecorationLine: "underline",
-    marginTop: 10,
-  },
-  bottomNav: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    paddingVertical: 20,
-    backgroundColor: "#1c1c2b",
-  },
-  icon: {
-    width: 28,
-    height: 28,
-  },
-  centerIcon: {
-    width: 40,
-    height: 40,
-  },
+
 });
 
 export default PhotoReelScreen;
