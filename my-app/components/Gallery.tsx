@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#9999BF",
   },
-  image: { width: 10, height: 10, margin: 10 },
+  image: { width: 200, height: 200, margin: 10 },
   buttonContainer: {
     position: "absolute",
     bottom: 160,  // Position the "Show Images" button 150 units from the bottom
