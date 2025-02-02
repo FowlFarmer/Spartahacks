@@ -45,9 +45,9 @@ export default function FeedScreen() {
         renderItem={({ item }) => (
           <View>
           <View style={styles.post}>
-            <Image source={require('@/assets/images/friends3.jpg')} style={styles.image} />
-            <Text style={styles.username}>{'@theodore'}</Text>
-            <Text style={styles.caption}>{'👀📸⭐😆😍'}</Text>
+                <Image source={require('@/assets/images/152421.jpeg')} style={styles.image} />
+                <Text style={styles.username}>{'@freezeframe'}</Text>
+                <Text style={styles.caption}>{'📸🧊🎞️👥💥'}</Text>
           </View>
           <View style={styles.post}>
                 <Image source={require('@/assets/images/friends2.jpg')} style={styles.image} />
@@ -55,7 +55,7 @@ export default function FeedScreen() {
                 <Text style={styles.caption}>{'✨🪷🌞🐞📀'}</Text>
           </View>
           <View style={styles.post}>
-                <Image source={require('@/assets/images/friend.jpg')} style={styles.image} />
+                <Image source={require('@/assets/images/152423.jpeg')} style={styles.image} />
                 <Text style={styles.username}>{'@kianaaa'}</Text>
                 <Text style={styles.caption}>{'🥐🌷🥳🍳🌛'}</Text>
           </View>
@@ -65,9 +65,9 @@ export default function FeedScreen() {
                 <Text style={styles.caption}>{'🪻🌒🐯🥭🏵️'}</Text>
           </View>
           <View style={styles.post}>
-                <Image source={require('@/assets/images/friend.jpg')} style={styles.image} />
-                <Text style={styles.username}>{'@freezeframe'}</Text>
-                <Text style={styles.caption}>{'📸🧊🎞️👥💥'}</Text>
+            <Image source={require('@/assets/images/friends3.jpg')} style={styles.image} />
+            <Text style={styles.username}>{'@theodore'}</Text>
+            <Text style={styles.caption}>{'👀📸⭐😆😍'}</Text>
           </View>
           </View>
         )}
