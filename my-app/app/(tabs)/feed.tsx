@@ -12,27 +12,27 @@ const posts = [
   {
     id: "1",
     username: "@theodore",
-    image: "https://via.placeholder.com/300", // Replace with actual image URL
+    image: '@/assets/images/friends3.jpg', // Replace with actual image URL
     caption: "👀📸⭐😆😍",
   },
-  {
-    id: "2",
-    username: "@shreyap",
-    image: "https://via.placeholder.com/300", // Replace with actual image URL
-    caption: "😈🙉✌️😏🍀",
-  },
-  {
-    id: "3",
-    username: "@vivthebean",
-    image: "https://via.placeholder.com/300", // Replace with actual image URL
-    caption: "😈🙉✌️😏🍀",
-  },
-  {
-    id: "4",
-    username: "@kianamayy",
-    image: "https://via.placeholder.com/300", // Replace with actual image URL
-    caption: "😈🙉✌️😏🍀",
-  },
+  // {
+  //   id: "2",
+  //   username: "@shreyap",
+  //   image: '@/assets/images/friends3.jpg', // Replace with actual image URL
+  //   caption: "😈🙉✌️😏🍀",
+  // },
+  // {
+  //   id: "3",
+  //   username: "@vivthebean",
+  //   image: '@/assets/images/friends3.jpg', // Replace with actual image URL
+  //   caption: "😈🙉✌️😏🍀",
+  // },
+  // {
+  //   id: "4",
+  //   username: "@kianamayy",
+  //   image: '@/assets/images/friends3.jpg', // Replace with actual image URL
+  //   caption: "😈🙉✌️😏🍀",
+  // },
 ];
 
 export default function FeedScreen() {
@@ -43,10 +43,32 @@ export default function FeedScreen() {
         data={posts}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
+          <View>
           <View style={styles.post}>
-            <Image source={{ uri: item.image }} style={styles.image} />
-            <Text style={styles.username}>{item.username}</Text>
-            <Text style={styles.caption}>{item.caption}</Text>
+            <Image source={require('@/assets/images/friends3.jpg')} style={styles.image} />
+            <Text style={styles.username}>{'@theodore'}</Text>
+            <Text style={styles.caption}>{'👀📸⭐😆😍'}</Text>
+          </View>
+          <View style={styles.post}>
+                <Image source={require('@/assets/images/friends2.jpg')} style={styles.image} />
+                <Text style={styles.username}>{'@shreyap'}</Text>
+                <Text style={styles.caption}>{'✨🪷🌞🐞📀'}</Text>
+          </View>
+          <View style={styles.post}>
+                <Image source={require('@/assets/images/friend.jpg')} style={styles.image} />
+                <Text style={styles.username}>{'@kianaaa'}</Text>
+                <Text style={styles.caption}>{'🥐🌷🥳🍳🌛'}</Text>
+          </View>
+          <View style={styles.post}>
+                <Image source={require('@/assets/images/friend5.jpg')} style={styles.image} />
+                <Text style={styles.username}>{'@viviang'}</Text>
+                <Text style={styles.caption}>{'🪻🌒🐯🥭🏵️'}</Text>
+          </View>
+          <View style={styles.post}>
+                <Image source={require('@/assets/images/friend.jpg')} style={styles.image} />
+                <Text style={styles.username}>{'@freezeframe'}</Text>
+                <Text style={styles.caption}>{'📸🧊🎞️👥💥'}</Text>
+          </View>
           </View>
         )}
         showsVerticalScrollIndicator={false}
