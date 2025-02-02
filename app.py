@@ -1,13 +1,32 @@
 from flask import Flask, jsonify
+from pymongo import MongoClient
+import os
+from dotenv import load_dotenv
+from routes.photo_routes import photo_bp  # Import the blueprint
 
-# Initialize Flask app
+# Load environment variables
+load_dotenv()
+
 app = Flask(__name__)
 
-# Test route to check server functionality
+# Connect to MongoDB (global connection)
+mongo_uri = os.getenv('MONGO_URI')
+client = MongoClient(mongo_uri)
+db = client['FreezeFrame']
+
+# Register the blueprint for photo routes
+app.register_blueprint(photo_bp)
+
 @app.route('/')
 def home():
-    return jsonify({"message": "Hello, Vivian! Your server is running successfully."})
+    try:
+        collections = db.list_collection_names()
+        return jsonify({
+            "message": "MongoDB connection successful!",
+            "collections": collections
+        })
+    except Exception as e:
+        return jsonify({"error": "Failed to fetch collections", "details": str(e)}), 500
 
-# Run the server
 if __name__ == '__main__':
     app.run(debug=True)
