@@ -39,21 +39,21 @@ def upload_photo():
         print(f"Error during photo upload: {str(e)}")
         return jsonify({"error": "Internal Server Error", "details": str(e)}), 500
 
-# # Route to retrieve all uploaded photos
-# # GET /photos: Retrieves all uploaded photos and returns them as JSON.
-# @photo_bp.route('/photos', methods=['GET'])
-# def get_photos():
-#     try:
-#         # Fetch all photos from the 'photos' collection
-#         photos = list(db['photos'].find({}, {'_id': 1, 'user': 1, 'photo_url': 1, 'upload_time': 1}))
+# Route to retrieve all uploaded photos
+# GET /photos: Retrieves all uploaded photos and returns them as JSON.
+@photo_bp.route('/photos', methods=['GET'])
+def get_photos():
+    try:
+        # Fetch all photos from the 'photos' collection
+        photos = list(db['photos'].find({}, {'_id': 1, 'user': 1, 'photo_url': 1, 'upload_time': 1}))
 
-#         # Convert ObjectId and datetime to string for JSON serialization
-#         for photo in photos:
-#             photo['_id'] = str(photo['_id'])
-#             photo['upload_time'] = photo['upload_time'].strftime('%Y-%m-%d %H:%M:%S')
+        # Convert ObjectId and datetime to string for JSON serialization
+        for photo in photos:
+            photo['_id'] = str(photo['_id'])
+            photo['upload_time'] = photo['upload_time'].strftime('%Y-%m-%d %H:%M:%S')
 
-#         return jsonify({"photos": photos}), 200
+        return jsonify({"photos": photos}), 200
 
-#     except Exception as e:
-#         print(f"Error retrieving photos: {str(e)}")
-#         return jsonify({"error": "Internal Server Error", "details": str(e)}), 500
+    except Exception as e:
+        print(f"Error retrieving photos: {str(e)}")
+        return jsonify({"error": "Internal Server Error", "details": str(e)}), 500
