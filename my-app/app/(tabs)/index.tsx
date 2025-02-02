@@ -1,22 +1,15 @@
 import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { View, Button, Text, StyleSheet, SafeAreaView } from "react-native";
 import CameraComponent from "@/components/Camera";
 import GalleryScreen from "@/components/Gallery";
 const Tab = createBottomTabNavigator();
 
-// Home Screen Component
-const HomeScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Welcome to the Camera App 📸</Text>
-      <Text style={styles.subtext}>Capture and view your photos easily.</Text>
-    </View>
-  );
-};
+
 
 export default function App() {
+  const [isCamera, setIsCamera] = useState(true);
   const [photos, setPhotos] = useState<string[]>([]);
 
   const handlePhotoTaken = (uri: string) => {
@@ -25,8 +18,12 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <CameraComponent onPhotoTaken={handlePhotoTaken} />
-      {<GalleryScreen photos={photos} />}
+      <Button
+        title={isCamera ? "Go to Gallery" : "Open Camera"}
+        onPress={() => setIsCamera(!isCamera)}
+      />
+      {isCamera && <CameraComponent onPhotoTaken={handlePhotoTaken} />}
+      {!isCamera && <GalleryScreen photos={photos} />}
     </SafeAreaView>
   );
 }
