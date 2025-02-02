@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { View, Button, Text, StyleSheet, SafeAreaView } from "react-native";
 import CameraComponent from "@/components/Camera";
-import GalleryScreen from "@/components/Gallery";
 const Tab = createBottomTabNavigator();
 
 
@@ -18,12 +17,12 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Button
+      {/* <Button
         title={isCamera ? "Go to Gallery" : "Open Camera"}
         onPress={() => setIsCamera(!isCamera)}
-      />
-      {isCamera && <CameraComponent onPhotoTaken={handlePhotoTaken} />}
-      {!isCamera && <GalleryScreen photos={photos} />}
+      /> */}
+       <CameraComponent />
+      {/* {!isCamera && <GalleryScreen photos={photos} />} */}
     </SafeAreaView>
   );
 }
