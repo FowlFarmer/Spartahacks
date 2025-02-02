@@ -11,33 +11,8 @@ mongo_uri = os.getenv('MONGO_URI')
 client = MongoClient(mongo_uri)
 db = client['FreezeFrame']
 
-# # Photo upload route
-# # POST /upload: Uploads photo metadata to MongoDB.
-# @photo_bp.route('/upload', methods=['POST'])
-# def upload_photo():
-#     try:
-#         # Parse and validate request data
-#         data = request.json
-#         if not data or not data.get("user") or not data.get("photo_url"):
-#             return jsonify({"error": "Missing 'user' or 'photo_url'"}), 400
-
-#         # Insert photo data into the 'photos' collection
-#         photo_data = {
-#             "user": data["user"],
-#             "photo_url": data["photo_url"],
-#             "upload_time": datetime.datetime.utcnow()
-#         }
-
-#         result = db['photos'].insert_one(photo_data)
-
-#         return jsonify({
-#             "message": "Photo uploaded successfully!",
-#             "photo_id": str(result.inserted_id)
-#         }), 201
-
-#     except Exception as e:
-#         print(f"Error during photo upload: {str(e)}")
-#         return jsonify({"error": "Internal Server Error", "details": str(e)}), 500
+# Photo upload route
+# POST /upload: Uploads photo metadata to MongoDB.
 
 @photo_bp.route('/upload', methods=['POST'])
 def upload_photo():
@@ -47,40 +22,32 @@ def upload_photo():
         if not data or not data.get("user") or not data.get("photo_url"):
             return jsonify({"error": "Missing 'user' or 'photo_url'"}), 400
 
-        # Validate user existence (Optional if users collection is set up)
-        existing_user = db['users'].find_one({"username": data["user"]})
-        if not existing_user:
-            return jsonify({"error": f"User '{data['user']}' not found. Please register first."}), 400
+        user = data["user"]
+        photo_url = data["photo_url"]
 
-        # Check for duplicate photo uploads
-        existing_photo = db['photos'].find_one({"user": data["user"], "photo_url": data["photo_url"]})
-        if existing_photo:
+        # **Step 2: Check if user exists in the 'users' collection**
+        user_exists = db['users'].find_one({"username": user})
+        if not user_exists:
+            return jsonify({"error": f"User '{user}' not found. Please register first."}), 404
+
+        # **Step 3: Check for duplicate photo upload**
+        duplicate_photo = db['photos'].find_one({"user": user, "photo_url": photo_url})
+        if duplicate_photo:
             return jsonify({"error": "Duplicate photo. This photo has already been uploaded by the user."}), 409
 
-        # Enforce weekly photo upload limit
-        one_week_ago = datetime.datetime.utcnow() - datetime.timedelta(weeks=1)
-        photo_count = db['photos'].count_documents({
-            "user": data["user"],
-            "upload_time": {"$gte": one_week_ago}
-        })
-
-        if photo_count >= 20:
-            return jsonify({"error": "Weekly upload limit reached. You can only upload 20 photos per week."}), 429
-
-        # Insert photo data
+        # Insert the new photo
         photo_data = {
-            "user": data["user"],
-            "photo_url": data["photo_url"],
+            "user": user,
+            "photo_url": photo_url,
             "upload_time": datetime.datetime.utcnow()
         }
-
         result = db['photos'].insert_one(photo_data)
 
         return jsonify({
             "message": "Photo uploaded successfully!",
             "photo_id": str(result.inserted_id),
-            "user": data["user"],
-            "upload_time": photo_data["upload_time"]
+            "user": user,
+            "upload_time": photo_data["upload_time"].strftime("%Y-%m-%d %H:%M:%S")
         }), 201
 
     except Exception as e:
@@ -111,4 +78,34 @@ def get_user_photos():
 
     except Exception as e:
         print(f"Error retrieving photos: {str(e)}")
+        return jsonify({"error": "Internal Server Error", "details": str(e)}), 500
+
+
+# POST route in your Flask backend to handle new user registrations.
+@photo_bp.route('/register', methods=['POST'])
+def register_user():
+    try:
+        # Parse and validate the request
+        data = request.json
+        if not data or not data.get("username"):
+            return jsonify({"error": "Missing 'username'"}), 400
+
+        username = data["username"]
+
+        # Check if the user already exists
+        existing_user = db['users'].find_one({"username": username})
+        if existing_user:
+            return jsonify({"error": f"User '{username}' already exists."}), 409
+
+        # Insert new user
+        user_data = {
+            "username": username,
+            "created_at": datetime.datetime.utcnow()
+        }
+        db['users'].insert_one(user_data)
+
+        return jsonify({"message": f"User '{username}' registered successfully!"}), 201
+
+    except Exception as e:
+        print(f"Error during user registration: {str(e)}")
         return jsonify({"error": "Internal Server Error", "details": str(e)}), 500
